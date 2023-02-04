@@ -1,5 +1,5 @@
 import checkmark from './checkmark.png';
-function MyRecipesComponent({label, image, calories, ingredients, cuisineType}) {
+function MyRecipesComponent({label, image, calories, ingredients, cuisineType, index}) {
     return( <div className='recipe-container'>
         <h2>{label}</h2>
         <img src={image} width="300px" alt="food"/>
@@ -7,7 +7,7 @@ function MyRecipesComponent({label, image, calories, ingredients, cuisineType}) 
         <p className='white'>Cuisine: {cuisineType}</p>
         <ul className='list'>
             {ingredients.map(ingredient => (
-                <li><img src={checkmark} className="icon"/>{ingredient}</li>
+                <li key={index}><img src={checkmark} className="icon" alt='checkmark'/>{ingredient}</li>
             ))}
         </ul>
     </div>)

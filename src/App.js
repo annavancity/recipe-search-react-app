@@ -1,9 +1,8 @@
-
 import './App.css';
 import { useEffect, useState } from 'react';
-import video from './food.mp4'
+import video from './food.mp4';
 import MyRecipesComponent from './MyRecipesComponent';
-import search from './search.png'
+import search from './search.png';
 
 function App() {
   const MY_ID = "9a0d9e63";
@@ -20,6 +19,7 @@ function App() {
   const getRecipe = async ()=> {
     const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${MY_ID}&app_key=${MY_KEY}`);
     const data = await response.json();
+    console.log(data.hits)
     setMyRecipes(data.hits)
   }
     
@@ -46,13 +46,14 @@ function App() {
       <div className='container'>
         <form onSubmit={finalSearch}>
           <input className='search' placeholder='Search...' onChange={myRecipeSearch} value={mySearch}></input>
+          <div className='container'>
+            <button onClick={finalSearch}>
+              <img src={search} width="40px" className='icons' alt='search'/>
+            </button>
+          </div>
         </form>
       
-        <div className='container'>
-          <button onClick={finalSearch}>
-            <img src={search} width="40px" className='icons'/>
-          </button>
-        </div>
+        
       
       </div>
 
