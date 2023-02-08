@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import video from './food.mp4';
 import MyRecipesComponent from './MyRecipesComponent';
 import search from './search.png';
@@ -12,15 +12,16 @@ function App() {
   const [myRecipes, setMyRecipes] = useState([]);
   const [wordSubmitted, setWordSubmitted] = useState('avocado');
 
-  useEffect(() => {
-    getRecipe()
-  }, [wordSubmitted])
 
-  const getRecipe = async ()=> {
+  const getRecipe = useCallback(async ()=> {
     const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${MY_ID}&app_key=${MY_KEY}`);
     const data = await response.json();
     setMyRecipes(data.hits)
-  }
+  }, [wordSubmitted])
+
+  useEffect(() => {
+    getRecipe()
+  }, [getRecipe])
     
 
   const myRecipeSearch = (e) => {
